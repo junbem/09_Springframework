@@ -1,0 +1,6 @@
+#spring.application.name=chap02-handler-method-lecture-source
+spring:
+  application:
+    name: chap02-handler-method-lecture-source
+server:
+  port: 8080
