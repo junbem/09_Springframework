@@ -8,12 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-class BookRegistServiceTest {
+public class BookRegistServiceTest {
 
     @Autowired
     private BookRegistService bookRegistService;
@@ -35,17 +36,22 @@ class BookRegistServiceTest {
     @MethodSource("getBook")
     void testCreateEmbeddedPriceOfBook(
             String bookTitle, String author, String publisher,
-            LocalDate publishedDate, int regularPrice, double discountRate
+            LocalDateTime publishedDate, int regularPrice, double discountRate
     ) {
         //given
         BookRegistDTO newBook = new BookRegistDTO(
-                bookTitle, author, publisher, publishedDate, regularPrice, discountRate
+                bookTitle,
+                author,
+                publisher,
+                publishedDate,
+                regularPrice,
+                discountRate
         );
-        // when
 
-        // then
+        //when
+        //then
         Assertions.assertDoesNotThrow(
-                () -> bookRegistService.registerBook(newBook)
+                () -> bookRegistService.registBook(newBook)
         );
     }
 }

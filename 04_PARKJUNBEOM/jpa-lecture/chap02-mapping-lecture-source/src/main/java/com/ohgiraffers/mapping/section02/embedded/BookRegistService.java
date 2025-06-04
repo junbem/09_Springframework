@@ -13,8 +13,7 @@ public class BookRegistService {
     }
 
     @Transactional
-    public void registeBook(BookRegistDTO newBook){
-
+    public void registBook(BookRegistDTO newBook) {
         Book book = new Book(
                 newBook.getBookTitle(),
                 newBook.getAuthor(),
@@ -25,7 +24,7 @@ public class BookRegistService {
                         newBook.getDiscountRate()
                 )
         );
-        // 저장
+
         bookRepository.save(book);
     }
 }

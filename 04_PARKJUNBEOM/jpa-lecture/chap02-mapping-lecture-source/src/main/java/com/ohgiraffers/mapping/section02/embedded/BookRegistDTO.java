@@ -1,19 +1,20 @@
 package com.ohgiraffers.mapping.section02.embedded;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class BookRegistDTO {
+
     private String bookTitle;
     private String author;
     private String publisher;
-    private LocalDate publishedDate;
+    private LocalDateTime publishedDate;
     private int regularPrice;
     private double discountRate;
 
     public BookRegistDTO() {
     }
 
-    public BookRegistDTO(String bookTitle, String author, String publisher, LocalDate publishedDate, int regularPrice, double discountRate) {
+    public BookRegistDTO(String bookTitle, String author, String publisher, LocalDateTime publishedDate, int regularPrice, double discountRate) {
         this.bookTitle = bookTitle;
         this.author = author;
         this.publisher = publisher;
@@ -46,11 +47,11 @@ public class BookRegistDTO {
         this.publisher = publisher;
     }
 
-    public LocalDate getPublishedDate() {
+    public LocalDateTime getPublishedDate() {
         return publishedDate;
     }
 
-    public void setPublishedDate(LocalDate publishedDate) {
+    public void setPublishedDate(LocalDateTime publishedDate) {
         this.publishedDate = publishedDate;
     }
 

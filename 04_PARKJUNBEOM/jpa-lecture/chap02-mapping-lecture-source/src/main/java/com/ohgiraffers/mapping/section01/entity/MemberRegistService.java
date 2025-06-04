@@ -30,14 +30,4 @@ public class MemberRegistService {
 
         memberRepository.save(member);
     }
-
-    /*
-    * Spring의 트랜잭션 전파방식 : default는 PROPAGATION_REQUIRED
-    * @Transactional이 붙은 메소드 내부에서 다시 @Trasactional이 붙은 메소드를 호출하면 호출된 메소드는 호출한 메소드와 동일한 트랜잭션 커텍스트를 사용하게 된다.
-    * */
-    @Transactional
-    public String registMemberAndFindName(MemberRegistDTO newMember) {
-        registMember(newMember);
-        return memberRepository.findNameById(newMember.getMemberId()); // 메소드쿼리
-    }
 }
