@@ -24,6 +24,17 @@ repositories {
 }
 
 dependencies {
+<<<<<<< HEAD
+=======
+
+    // https://mvnrepository.com/artifact/org.modelmapper/modelmapper
+    implementation 'org.modelmapper:modelmapper:3.2.1'
+
+    // https://mvnrepository.com/artifact/org.mapstruct/mapstruct
+    implementation 'org.mapstruct:mapstruct:1.6.3'
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.6.3'
+
+>>>>>>> b1ae6ea481902553b4aac8222bb443fb4393b221
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -33,9 +44,12 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+<<<<<<< HEAD
     implementation("org.modelmapper:modelmapper:3.2.1")
     implementation("org.mapstruct:mapstruct:1.6.3")
     annotationProcessor("org.mapstruct:mapstruct-processor:1.6.3")
+=======
+>>>>>>> b1ae6ea481902553b4aac8222bb443fb4393b221
 }
 
 tasks.named('test') {
