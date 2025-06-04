@@ -22,7 +22,7 @@ class RoleServiceTest {
     private static Stream<Arguments> getRole1() {
         return Stream.of(
                 Arguments.of(
-                        "ROLE_ADMIN",
+                        "ROLE_ADMIN", // 규칙(_)
                         "관리자",
                         Set.of("/admin/members", "/admin/members/update/*")
                 )
@@ -87,7 +87,7 @@ class RoleServiceTest {
         // when
         roleService.registRole(roleDTO);
         // then
-        // permission은 일부 수정이 아니라 set객체 전체를 교체한다.
+        // permission은 일부 수정이 아니라 set객체 전체를 교체한다. (새로고침)
         Assertions.assertDoesNotThrow(
                 () -> roleService.modifyRole(id, newPermissions)
         );
