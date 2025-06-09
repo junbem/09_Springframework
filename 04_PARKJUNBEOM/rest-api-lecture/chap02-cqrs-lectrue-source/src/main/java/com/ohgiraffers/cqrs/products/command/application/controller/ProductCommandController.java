@@ -24,7 +24,7 @@ public class ProductCommandController {
     public ResponseEntity<ApiResponse<ProductCommandResponse>> createProduct(
             @RequestPart @Validated ProductCreateRequest productCreateRequest,
             @RequestPart MultipartFile productImg
-            ) {
+            ){
         log.info("Creating product ===>>{}", productCreateRequest);
         log.info("Product image ===>>{}", productImg);
         Long productCode = productCommandService.createProduct(productCreateRequest, productImg);
