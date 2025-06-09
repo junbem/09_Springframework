@@ -1,14 +1,21 @@
 package com.ohgiraffers.datajpa.menu.controller;
 
+import com.ohgiraffers.datajpa.common.Pagenation;
+import com.ohgiraffers.datajpa.common.PagingButton;
+import com.ohgiraffers.datajpa.menu.dto.CategoryDTO;
 import com.ohgiraffers.datajpa.menu.dto.MenuDTO;
 import com.ohgiraffers.datajpa.menu.service.MenuService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
 
 @Controller
 @RequestMapping("/menu")
@@ -29,7 +36,7 @@ public class MenuController {
     }
 
     @GetMapping("/list")
-    public String findMenuList(Model model){
+    public String findMenuList(Model model, @PageableDefault Pageable pageable) {
 
 
         /* System.out.print 계열의 메소드보다 효율적으로 로그 출력을 할 수 있다.
@@ -38,7 +45,65 @@ public class MenuController {
         * */
         String test = "test";
         log.info("log test ====> {}", test);
-        return "";
+
+        /* 1. 페이징 처리 안된 단순 리스트 조회 테스트 */
+//        List<MenuDTO> menuList = menuService.findMenuList();
+
+        /* 2. 페이징 처리 */
+        Page<MenuDTO> menuList = menuService.findMenuList(pageable);
+        log.info("log menuList paging ====> {}", menuList);
+        PagingButton paging = Pagenation.getPagingButtonInfo(menuList);
+        model.addAttribute("menuList", menuList);
+        model.addAttribute("paging", paging);
+        return "menu/list";
+    }
+
+    @GetMapping("/querymethod")
+    public void queryMethodPage() {
+
+    }
+
+    @GetMapping("/search")
+    public String findByMenuPrice(@RequestParam Integer menuPrice, Model model) {
+
+        List<MenuDTO> menuList = menuService.findByMenuPrice(menuPrice);
+        model.addAttribute("menuList", menuList);
+        return "menu/searchResult";
+    }
+
+    @GetMapping("/regist")
+    public void resgistPage(){}
+
+    @GetMapping("/category")
+    @ResponseBody // 응답 데이터에 body에 반환 값을 그대로 전달하겠다는 의미 (ViewResolver 사용 X)
+    public List<CategoryDTO> findCategoryList(){
+        return menuService.findAllCategory();
+    }
+
+    @PostMapping("/regist")
+    public String registMenu(@ModelAttribute MenuDTO menuDTO) { // input의 name값과 필드명이 동일해야 한다.
+        menuService.registMenu(menuDTO);
+        // insert, update, delete의 행위 후에 새로운 request, response를 만들기 위해 redirect
+        return "redirect:/menu/list";
+    }
+
+    @GetMapping("/modify")
+    public void modifyPage(){
+
+    }
+    @PostMapping("/modify")
+    public String modifyMenu(@ModelAttribute MenuDTO menuDTO) {
+        menuService.modifyMenu(menuDTO);
+        return "redirect:/menu/" + menuDTO.getMenuCode();
+    }
+
+    @GetMapping("/delete")
+    public void deletePage() {}
+
+    @PostMapping("/delete")
+    public String deleteMenu(@RequestParam int menuCode) {
+        menuService.deleteMenu(menuCode);
+        return "redirect:/menu/list";
     }
 }
 
